@@ -16,6 +16,7 @@ dependencies = [
   "pydantic>=2.6.0",
   "arp-standard-model==0.3.1",
   "arp-standard-server==0.3.1",
+  "uvicorn>=0.29.0",
 ]
 
 [project.optional-dependencies]
@@ -25,7 +26,6 @@ dev = [
   "pytest-cov>=4",
   "httpx>=0.23.0",
 ]
-run = ["uvicorn>=0.29.0"]
 
 [project.scripts]
 arp-jarvis-runstore = "jarvis_run_store.__main__:main"

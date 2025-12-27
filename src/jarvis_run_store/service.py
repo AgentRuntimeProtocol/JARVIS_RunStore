@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 from typing import Annotated
+from datetime import datetime, timezone
 
-from arp_standard_model import NodeRun, Run
+from arp_standard_model import Health, NodeRun, Run, Status, VersionInfo
 from arp_standard_server import AuthSettings
 from arp_standard_server.auth import register_auth_middleware
 from fastapi import FastAPI, HTTPException, Query
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 from . import __version__
 from .config import RunStoreConfig, run_store_config_from_env
@@ -18,17 +19,6 @@ from .utils import (
     encode_page_token,
     now,
 )
-
-
-class Health(BaseModel):
-    status: str
-    time: str
-
-
-class VersionInfo(BaseModel):
-    service_name: str
-    service_version: str
-    supported_api_versions: list[str]
 
 
 class CreateRunRequest(BaseModel):
@@ -66,7 +56,7 @@ def create_app(
 
     @app.get("/v1/health", response_model=Health)
     async def health() -> Health:
-        return Health(status="ok", time=now())
+        return Health(status=Status.ok, time=datetime.now(timezone.utc))
 
     @app.get("/v1/version", response_model=VersionInfo)
     async def version() -> VersionInfo:

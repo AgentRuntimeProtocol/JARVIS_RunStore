@@ -4,8 +4,8 @@ import json
 import sqlite3
 from contextlib import contextmanager
 from dataclasses import dataclass
-from pathlib import Path
-from typing import Iterable, Iterator
+from collections.abc import Sequence
+from typing import Iterator
 
 from arp_standard_model import NodeRun, Run
 
@@ -184,7 +184,7 @@ class SqliteRunStore:
             raise StorageFullError("Run store exceeds configured max size.")
 
 
-def _fetch_one(conn: sqlite3.Connection, query: str, params: Iterable[object]) -> sqlite3.Row | None:
+def _fetch_one(conn: sqlite3.Connection, query: str, params: Sequence[object]) -> sqlite3.Row | None:
     cursor = conn.execute(query, params)
     return cursor.fetchone()
 

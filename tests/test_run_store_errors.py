@@ -27,7 +27,7 @@ def _make_node_run(node_run_id: str = "node_1", run_id: str = "run_1") -> NodeRu
         node_run_id=node_run_id,
         run_id=run_id,
         state=NodeRunState.running,
-        node_type_ref=NodeTypeRef(node_type_id="jarvis.core.echo", version="0.3.2"),
+        node_type_ref=NodeTypeRef(node_type_id="jarvis.core.echo", version="0.3.3"),
     )
 
 
